@@ -2,7 +2,11 @@ use anyhow::Error;
 use clap::Parser;
 use document_storage::{
     cli::{Commands, QuickwitUploader, ServiceType, Upload},
-    storage::{opensearch::OpenSearch, quickwit::{Quickwit, QuickwitAtom}, Search, Store},
+    storage::{
+        Search, Store,
+        opensearch::{OpenSearchService, OpensearchAtom},
+        quickwit::{Quickwit, QuickwitAtom},
+    },
 };
 
 async fn quickwit_upload(upload: &Upload) -> Result<(), Error> {
@@ -12,9 +16,11 @@ async fn quickwit_upload(upload: &Upload) -> Result<(), Error> {
 }
 
 #[allow(unused)]
-async fn opensearch_upload(_upload: Upload) -> Result<(), Error> {
-    let _os = OpenSearch;
-    unimplemented!()
+async fn opensearch_upload(upload: &Upload) -> Result<(), Error> {
+    let _os = OpenSearchService;
+    let atomic = OpensearchAtom::from(upload);
+    eprintln!("{:#?}", atomic);
+    Ok(())
 }
 
 #[tokio::main]
@@ -25,16 +31,12 @@ async fn main() -> Result<(), Error> {
             // eprintln!("{}", upload.to_string());
             match upload.server {
                 Some(ServiceType::Opensearch) => {
-                    todo!();
-                },
-                Some(ServiceType::Quickwit) => {
-                    quickwit_upload(&upload).await?
-                },
-                None => {
-                    quickwit_upload(&upload).await?
+                    opensearch_upload(&upload).await?;
                 }
+                Some(ServiceType::Quickwit) => quickwit_upload(&upload).await?,
+                None => quickwit_upload(&upload).await?,
             }
-            let _ = serde_json::to_writer_pretty( std::io::stdout(), &upload.get_data());
+            let _ = serde_json::to_writer_pretty(std::io::stdout(), &upload.get_data());
         }
         Some(Commands::Search(_search)) => {
             unimplemented!()

@@ -15,9 +15,11 @@ pub struct Upload {
     #[arg(short, long)]
     data: MaybeStdin<Value>,
     #[arg(short, long)]
-    pub field: Option<String>,
+    pub array_field: Option<String>,
     #[arg(short, long)]
     index: String,
+    #[arg(long("id"))]
+    pub identity_field: Option<String>,
     #[arg(short, long)]
     pub server: Option<ServiceType>
 }
