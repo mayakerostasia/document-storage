@@ -10,6 +10,10 @@ license-file = "LICENSE.txt"
 name = "tee-doc"
 path = "src/bin/tee_doc.rs"
 
+[[package.metadata.wix]]
+name = "tee-doc"
+product-icon = "./assets/icon.ico"
+
 [dependencies]
 anyhow = "1.0.98"
 clap = { version = "4.5.40", features = ["derive"] }
