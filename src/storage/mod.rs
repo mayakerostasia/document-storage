@@ -1,7 +1,5 @@
 use anyhow::Error;
-use crate::Atomic;
 use serde_json::Value;
-// pub use quickwit::{Quickwit, QuickwitAtom};
 
 pub trait ReprAtomic {
     fn repr(&self) ->Result<String, Error> ;

@@ -9,7 +9,7 @@ pub struct QuickwitAtom {
 impl From<&Upload> for QuickwitAtom {
     fn from(value: &Upload) -> Self {
         QuickwitAtom { 
-            field: value.field.clone(), 
+            field: value.array_field.clone(), 
             data: value.get_data().into()
         }
     }
