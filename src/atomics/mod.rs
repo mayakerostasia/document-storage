@@ -15,13 +15,13 @@ impl Atomic {
         self.data.0.clone()
     }
 
-    pub fn from_array_in_object(array_field: &str, value: Value) -> Self {
+    pub fn from_array_in_object(_array_field: &str, _value: Value) -> Self {
         todo!()
     }
 
-    pub fn from_data(id: &str, value: Value) -> Self {
+    pub fn basic_value(value: Value) -> Self {
         Atomic {
-            id: IdQuark(id.to_string()),
+            id: IdQuark("".to_string()),
             meta: MetaQuark(json!({})),
             data: DataQuark(value)
         }
@@ -30,8 +30,7 @@ impl Atomic {
 
 impl From<Value> for Atomic {
     fn from(value: Value) -> Self {
-        let id = value.get("id").expect("No 'id' key in object").to_string();
-        Atomic::from_data(&id ,value)
+        Atomic::basic_value(value)
     }
 
 }
