@@ -1,0 +1,16 @@
+[package]
+name = "document-storage"
+version = "0.1.0"
+edition = "2024"
+authors = ['Maya Kerostasia']
+license-file = "LICENSE.txt"
+
+[dependencies]
+anyhow = "1.0.98"
+clap = { version = "4.5.40", features = ["derive"] }
+clap-stdin = "0.6.0"
+reqwest = { version = "0.12.20", features = ["json"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+thiserror = "2.0.12"
+tokio = { version = "1.45.1", features = ["rt-multi-thread", "macros"] }
