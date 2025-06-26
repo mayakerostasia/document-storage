@@ -1,4 +1,3 @@
-use std::fmt::Display;
 use clap::Args;
 use clap_stdin::MaybeStdin;
 use serde_json::Value;
@@ -23,7 +22,7 @@ pub struct Upload {
     #[arg(short, long)]
     pub server: Option<ServiceType>,
     #[arg(short, long)]
-    pub pipe: bool
+    pub pipe: bool,
 }
 
 impl Upload {

@@ -1,13 +1,13 @@
-use std::fmt::Display;
-use serde_json::{Value, json};
-use serde::{Serialize, Deserialize};
 use crate::cli::Upload;
+use serde::{Deserialize, Serialize};
+use serde_json::{Value, json};
+use std::fmt::Display;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Atomic {
     id: IdQuark,
     meta: MetaQuark,
-    data: DataQuark, 
+    data: DataQuark,
 }
 
 impl Atomic {
@@ -23,7 +23,7 @@ impl Atomic {
         Atomic {
             id: IdQuark("".to_string()),
             meta: MetaQuark(json!({})),
-            data: DataQuark(value)
+            data: DataQuark(value),
         }
     }
 }
@@ -32,14 +32,12 @@ impl From<Value> for Atomic {
     fn from(value: Value) -> Self {
         Atomic::basic_value(value)
     }
-
 }
 impl From<Upload> for Atomic {
     fn from(value: Upload) -> Self {
         let data = value.get_data();
         data.into()
     }
-    
 }
 impl Display for Atomic {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -1,5 +1,5 @@
-pub use service::Quickwit;
 pub use atomic::QuickwitAtom;
+pub use service::Quickwit;
 
-mod service;
 mod atomic;
+mod service;

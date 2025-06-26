@@ -11,13 +11,10 @@ const FETCH_URL: &str = "http://127.0.0.1:7280/api/v1/{INDEX}/search";
 pub struct Quickwit;
 
 impl Store for Quickwit {
-     async fn store_object(index: &str, input: impl ReprAtomic) -> Result<(), Error> {
+    async fn store_object(index: &str, input: impl ReprAtomic) -> Result<(), Error> {
         let url = STORAGE_URL.replace("{INDEX}", index);
         let client = reqwest::Client::new();
-        let response = client.post(url)
-            .body(input.repr()?)
-            .send()
-            .await?;
+        let response = client.post(url).body(input.repr()?).send().await?;
 
         eprintln!("Response from QW: {:#?}", response);
 
@@ -33,7 +30,6 @@ impl Search for Quickwit {
         eprintln!("Response from QW: {:#?}", response);
         Ok(response.json().await?)
     }
-
 }
 
 #[cfg(test)]
