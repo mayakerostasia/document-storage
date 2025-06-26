@@ -1,12 +1,11 @@
+use super::super::{ReprAtomic, Search, Store};
+use anyhow::Error;
 use reqwest::header::HeaderMap;
 use serde_json::Value;
-use anyhow::Error;
-use crate::Atomic;
-use super::super::{ReprAtomic, Search, Store};
 
 const OPENSEARCH_URL: &str = "https://127.0.0.1:9200/{INDEX}/_bulk";
 
-pub struct OpenSearchService ;
+pub struct OpenSearchService;
 
 impl Store for OpenSearchService {
     async fn store_object(index: &str, input: impl ReprAtomic) -> Result<(), Error> {
@@ -20,7 +19,8 @@ impl Store for OpenSearchService {
             .default_headers(headers)
             .build()?;
 
-        let response = client.post(url)
+        let response = client
+            .post(url)
             .body(input.repr()?)
             .basic_auth("admin", Some("MKroot098"))
             .send()
@@ -40,7 +40,7 @@ impl Search for OpenSearchService {
         let response = client.get(url).send().await?;
         eprintln!("Response from QW: {:#?}", response);
         Ok(response.json().await?)
-    }    
+    }
 }
 
 #[cfg(test)]

@@ -3,7 +3,7 @@ use clap::Parser;
 use document_storage::{
     cli::{Commands, QuickwitUploader, ServiceType, Upload},
     storage::{
-        Search, Store,
+        Store,
         opensearch::{OpenSearchService, OpensearchAtom},
         quickwit::{Quickwit, QuickwitAtom},
     },

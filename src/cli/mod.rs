@@ -1,11 +1,11 @@
 use clap::{Parser, Subcommand};
-pub use upload::Upload;
 pub use search::Search;
 pub use services::ServiceType;
+pub use upload::Upload;
 
-mod upload;
 mod search;
 mod services;
+mod upload;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const ABOUT: &str = "Quickwit Pipe Uploader";
@@ -26,4 +26,3 @@ pub enum Commands {
     Upload(Upload),
     Search(Search),
 }
-

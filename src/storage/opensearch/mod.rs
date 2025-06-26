@@ -1,5 +1,5 @@
-pub use service::OpenSearchService;
 pub use atomic::OpensearchAtom;
+pub use service::OpenSearchService;
 
-mod service; 
 mod atomic;
+mod service;

@@ -1,7 +1,4 @@
-
-use std::fmt::Display;
 use clap::Args;
-use serde_json::Value;
 
 use super::ServiceType;
 
@@ -17,7 +14,7 @@ pub struct Search {
     #[arg(short, long)]
     index: String,
     #[arg(short, long)]
-    pub server: Option<ServiceType>
+    pub server: Option<ServiceType>,
 }
 
 impl Search {

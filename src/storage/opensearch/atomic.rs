@@ -12,6 +12,7 @@ pub struct OpensearchAtom {
     data: Atomic,
 }
 
+#[allow(unused)]
 impl OpensearchAtom {
     fn new(
         index: &str,
@@ -44,6 +45,7 @@ enum OpenSearchAction {
 }
 
 impl OpenSearchAction {
+    #[allow(unused)]
     pub fn create(index: &str, id: &str) -> Self {
         OpenSearchAction::Create(OpensearchMeta {
             _id: id.to_string(),
