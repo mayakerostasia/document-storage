@@ -1,5 +1,8 @@
 # Document Storage
-by Maya Kerostasia
+by Maya Kerostasia  
+
+[![Rust Check/Test/Fmt](https://github.com/mayakerostasia/document-storage/actions/workflows/test.yaml/badge.svg)](https://github.com/mayakerostasia/document-storage/actions/workflows/test.yaml)
+[![stable-beta-nightly](https://github.com/mayakerostasia/document-storage/actions/workflows/msvc.yaml/badge.svg)](https://github.com/mayakerostasia/document-storage/actions/workflows/msvc.yaml)
 
 ## tee-doc
 A JSON object 'tee' program that 
