@@ -1,18 +1,18 @@
 use serde_json::Value;
 use anyhow::Error;
 use crate::Atomic;
-use super::{Store, Search};
+use super::{ReprAtomic, Search, Store};
 
 const OPENSEARCH_URL: &str = "http://127.0.0.1:9200/{INDEX}/_doc/{ID}";
 
 pub struct OpenSearch ;
 
 impl Store for OpenSearch {
-    async fn store_object(index: &str, input: Atomic) -> Result<(), Error> {
+    async fn store_object(index: &str, input: impl ReprAtomic) -> Result<(), Error> {
         let url = OPENSEARCH_URL.replace("{INDEX}", index);
         let client = reqwest::Client::new();
         let response = client.post(url)
-            .body(input.to_string())
+            .body(input.repr()?)
             .send()
             .await?;
 

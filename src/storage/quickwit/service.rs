@@ -1,7 +1,9 @@
 use anyhow::Error;
 use serde_json::Value;
 
-use super::{Search, Store};
+use crate::storage::ReprAtomic;
+
+use super::super::{Search, Store};
 
 const STORAGE_URL: &str = "http://127.0.0.1:7280/api/v1/{INDEX}/ingest?commit=force";
 const FETCH_URL: &str = "http://127.0.0.1:7280/api/v1/{INDEX}/search";
@@ -9,11 +11,11 @@ const FETCH_URL: &str = "http://127.0.0.1:7280/api/v1/{INDEX}/search";
 pub struct Quickwit;
 
 impl Store for Quickwit {
-     async fn store_object(index: &str, input: crate::Atomic) -> Result<(), Error> {
+     async fn store_object(index: &str, input: impl ReprAtomic) -> Result<(), Error> {
         let url = STORAGE_URL.replace("{INDEX}", index);
         let client = reqwest::Client::new();
         let response = client.post(url)
-            .body(format!("{}", input))
+            .body(input.repr()?)
             .send()
             .await?;
 

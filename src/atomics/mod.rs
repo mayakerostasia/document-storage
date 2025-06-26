@@ -11,6 +11,10 @@ pub struct Atomic {
 }
 
 impl Atomic {
+    pub fn get_data(&self) -> Value {
+        self.data.0.clone()
+    }
+
     pub fn from_array_in_object(array_field: &str, value: Value) -> Self {
         todo!()
     }
