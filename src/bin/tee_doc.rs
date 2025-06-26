@@ -15,11 +15,9 @@ async fn quickwit_upload(upload: &Upload) -> Result<(), Error> {
     Ok(())
 }
 
-#[allow(unused)]
 async fn opensearch_upload(upload: &Upload) -> Result<(), Error> {
-    let _os = OpenSearchService;
     let atomic = OpensearchAtom::from(upload);
-    eprintln!("{:#?}", atomic);
+    OpenSearchService::store_object(&upload.get_index(), atomic).await?;
     Ok(())
 }
 
@@ -36,7 +34,9 @@ async fn main() -> Result<(), Error> {
                 Some(ServiceType::Quickwit) => quickwit_upload(&upload).await?,
                 None => quickwit_upload(&upload).await?,
             }
-            let _ = serde_json::to_writer_pretty(std::io::stdout(), &upload.get_data());
+            if upload.pipe {
+                let _ = serde_json::to_writer_pretty(std::io::stdout(), &upload.get_data());
+            }
         }
         Some(Commands::Search(_search)) => {
             unimplemented!()

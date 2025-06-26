@@ -21,7 +21,9 @@ pub struct Upload {
     #[arg(long("id"))]
     pub identity_field: Option<String>,
     #[arg(short, long)]
-    pub server: Option<ServiceType>
+    pub server: Option<ServiceType>,
+    #[arg(short, long)]
+    pub pipe: bool
 }
 
 impl Upload {
